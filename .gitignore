@@ -1,0 +1,11 @@
+#venv
+venv
+
+#enviroment variables
+*.env
+
+#database
+*.sqlite3
+
+#python
+__pycache__/
