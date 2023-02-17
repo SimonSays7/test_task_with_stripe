@@ -4,15 +4,15 @@ from django.contrib.auth.models import User
 
 
 class Item(models.Model):
-    name = models.CharField(
+    name: models.CharField = models.CharField(
         max_length=100,
         verbose_name='Название'
     )
-    description = models.CharField(
+    description:models.CharField = models.CharField(
         max_length=300,
         verbose_name='Описание'
     )
-    price = models.IntegerField(verbose_name='Цена')
+    price:models.IntegerField = models.IntegerField(verbose_name='Цена')
     
     def __str__(self) -> str:
         return self.name
@@ -27,12 +27,12 @@ class Item(models.Model):
 
     
 class Order(models.Model):
-    user = models.ForeignKey(
+    user: models.ForeignKey = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         verbose_name='Пользователь'
     )
-    item = models.ForeignKey(
+    item: models.ForeignKey = models.ForeignKey(
         Item,
         on_delete=models.CASCADE,
         verbose_name='Товар'
