@@ -9,10 +9,11 @@ Install dependencies
 pip install -r requirements.txt
 '''
 
-#Usage
+# Usage
 
 Go to the src/ directory
-''bash
+
+'''bash
 cd src
 '''
 
