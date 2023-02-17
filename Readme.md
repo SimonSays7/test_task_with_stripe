@@ -5,18 +5,18 @@ This is a test task using the Stripe library of the Django framework.
 
 Install dependencies
 
-'''bash
+```bash
 pip install -r requirements.txt
-'''
+```
 
 ## Usage
 
 Go to the src/ directory
 
-'''bash
+```bash
 cd src
-'''
+```
 
-'''bash
+```bash
 python3 manage.py runserver
-'''
+```
