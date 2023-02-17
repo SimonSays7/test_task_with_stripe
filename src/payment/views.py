@@ -33,7 +33,6 @@ def buy(request: HttpRequest, id: int) -> JsonResponse:
 def add_item_to_order(request: HttpRequest
         ) -> HttpResponseRedirectBase:
     item_id = request.POST['item']
-    print(request.POST['item'])
     item = get_object_or_404(Item, id=item_id)
     order = Order(user=request.user, item=item)
     order.save()
@@ -49,10 +48,10 @@ def buy_order(request: HttpRequest) -> JsonResponse:
     ).annotate(sum=Count('item')
     )
     line_items = create_line_items(orders)
-    print(line_items)
     session = create_stripe_session(
         line_items=line_items,
-        api_key=api_key)
+        api_key=api_key
+    )
     return JsonResponse({'id': session.id})
 
 
