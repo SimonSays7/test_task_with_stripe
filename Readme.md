@@ -1,7 +1,7 @@
 # Read Me
 This is a test task using the Stripe library of the Django framework.
 
-# Install
+## Install
 
 Install dependencies
 
@@ -9,7 +9,7 @@ Install dependencies
 pip install -r requirements.txt
 '''
 
-# Usage
+## Usage
 
 Go to the src/ directory
 
