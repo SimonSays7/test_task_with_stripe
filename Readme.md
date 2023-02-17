@@ -1,18 +1,21 @@
-#Read Me
+# Read Me
 This is a test task using the Stripe library of the Django framework.
 
-#Install
+# Install
+
 Install dependencies
-'''shell
+
+'''bash
 pip install -r requirements.txt
 '''
 
 #Usage
 
 Go to the src/ directory
-'''shell
+''bash
 cd src
 '''
-'''shell
+
+'''bash
 python3 manage.py runserver
 '''
