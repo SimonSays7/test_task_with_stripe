@@ -11,7 +11,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-Go to the src/ directory
+Go to the src/directory
 
 ```bash
 cd src

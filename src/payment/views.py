@@ -1,6 +1,5 @@
-from typing import Union
-
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http.response import HttpResponseRedirectBase
 from django.views.generic.detail import DetailView
 from django.db.models import Count, Sum
 from django.urls import reverse_lazy
@@ -8,13 +7,11 @@ from django.http import (
     HttpRequest, 
     HttpResponse, 
     JsonResponse, 
-    HttpResponseRedirect,
-    HttpResponsePermanentRedirect,
 )
 
-from .models import Item, Order
-from .views_mixin import ItemObjectMixin
 from .dependency.data_enviroment import get_api_key_stripe, get_publick_key
+from .views_mixin import ItemObjectMixin
+from .models import Item, Order
 from .util.object_stripe import (
     create_line_items, 
     create_stripe_session, 
@@ -34,7 +31,7 @@ def buy(request: HttpRequest, id: int) -> JsonResponse:
 
 
 def add_item_to_order(request: HttpRequest
-        ) -> Union[HttpResponseRedirect, HttpResponsePermanentRedirect] :
+        ) -> HttpResponseRedirectBase:
     item_id = request.POST['item']
     print(request.POST['item'])
     item = get_object_or_404(Item, id=item_id)
@@ -65,7 +62,7 @@ def get_current_order(request: HttpRequest) -> HttpResponse:
     context = {
         'orders': orders,
         'sum': summary,
-        'stripe_public' : get_publick_key()
+        'stripe_public': get_publick_key()
     }
     return render(request, 'payment/orders.html', context=context)
 

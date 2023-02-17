@@ -24,7 +24,6 @@ class Item(models.Model):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
     
-
     
 class Order(models.Model):
     user: models.ForeignKey = models.ForeignKey(
@@ -39,7 +38,7 @@ class Order(models.Model):
     )
     
     def __repr__(self) -> str:
-        return str(self.user) + str(self.item)
+        return str(self.user) + '_' + str(self.item)
     
     class Meta:
         verbose_name = 'Заказ'

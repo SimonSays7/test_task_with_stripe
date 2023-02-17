@@ -1,15 +1,14 @@
 from typing import Dict, Any, List
-from collections.abc import Sequence, Iterable
+from collections.abc import Iterable
 
 import stripe
 from stripe.api_resources.checkout import Session
 
-from django.db.models import Model
-
-from ..models import Item, Order
+from ..models import Item
 
 
-def create_line_items(product: Iterable) -> List[Dict[str, Any]]:
+def create_line_items(product: Iterable[Dict[str, Any]]
+        ) -> List[Dict[str, Any]]:
     line_items: List[Dict[str, Any]] = []
     for item in product:
         items = {
@@ -42,7 +41,10 @@ def create_one_line_items(product: Item) -> List[Dict[str, Any]]:
     return line_items
 
 
-def create_stripe_session(line_items: List[Dict[str, Any]], api_key: str) -> Session:
+def create_stripe_session(
+        line_items: List[Dict[str, Any]], 
+        api_key: str
+    ) -> Session:
     session = stripe.checkout.Session.create(
         api_key=api_key,
         mode='payment',
