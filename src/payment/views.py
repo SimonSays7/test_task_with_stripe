@@ -1,5 +1,9 @@
+from typing import Union
+
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirectBase
+from django.views.decorators.http import require_GET
 from django.views.generic.detail import DetailView
 from django.db.models import Count, Sum
 from django.urls import reverse_lazy
@@ -9,7 +13,7 @@ from django.http import (
     JsonResponse, 
 )
 
-from .dependency.data_enviroment import get_api_key_stripe, get_publick_key
+from .dependency.data_enviroment import get_api_key_stripe, get_public_key
 from .views_mixin import ItemObjectMixin
 from .models import Item, Order
 from .util.object_stripe import (
@@ -18,7 +22,8 @@ from .util.object_stripe import (
     create_one_line_items
 )
 
-
+@require_GET
+@login_required
 def buy(request: HttpRequest, id: int) -> JsonResponse:
     api_key = get_api_key_stripe()
     product = get_object_or_404(Item, id=id)
@@ -39,6 +44,8 @@ def add_item_to_order(request: HttpRequest
     return redirect(reverse_lazy('item', kwargs={'id': item_id}))
 
 
+@require_GET
+@login_required
 def buy_order(request: HttpRequest) -> JsonResponse:
     api_key = get_api_key_stripe()
     orders = Order.objects.filter(user=request.user
@@ -61,7 +68,7 @@ def get_current_order(request: HttpRequest) -> HttpResponse:
     context = {
         'orders': orders,
         'sum': summary,
-        'stripe_public': get_publick_key()
+        'stripe_public': get_public_key()
     }
     return render(request, 'payment/orders.html', context=context)
 
@@ -69,4 +76,4 @@ def get_current_order(request: HttpRequest) -> HttpResponse:
 class ItemView(ItemObjectMixin, DetailView):
     pk_url_kwarg: str = 'id'
     template_name = 'payment/item_detail.html'
-    extra_context = {'stripe_public' : get_publick_key()}
+    extra_context = {'stripe_public' : get_public_key()}

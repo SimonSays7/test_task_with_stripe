@@ -6,6 +6,6 @@ def get_api_key_stripe() -> str:
     return env('API_KEY_STRIPE')
 
 
-def get_publick_key() -> str:
+def get_public_key() -> str:
     env = environ.Env()
     return env('API_PUBLIC_KEY_STRIPE')
